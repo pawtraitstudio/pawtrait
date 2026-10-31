@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="theme-color" content="#f7f1e8">
+  <title>Submit Your Dog | Pawtrait Studio</title>
+  <style>
+    :root{--ink:#252820;--muted:#6f6b62;--cream:#f7f1e8;--paper:#fffdf9;--olive:#30382f;--line:#e8dfd2;--tan:#a8754e}
+    *{box-sizing:border-box}
+    html{width:100%;overflow-x:hidden;-webkit-text-size-adjust:100%;text-size-adjust:100%}
+    body{margin:0;width:100%;min-width:320px;overflow-x:hidden;background:var(--cream);color:var(--ink);font-family:Inter,Arial,sans-serif}
+    .site-header{height:72px;padding:0 clamp(18px,5vw,64px);display:flex;align-items:center;gap:12px;background:#f7f1e8}
+    .paw{width:39px;height:39px;background:#171914;color:#fff;display:grid;place-items:center;border-radius:3px;font-size:23px}
+    .brand{font-weight:750;letter-spacing:1.5px;font-size:18px}
+    main{width:min(960px,calc(100% - 32px));margin:24px auto 52px;background:var(--paper);border:1px solid #eee5d9;border-radius:16px;overflow:hidden;box-shadow:0 14px 45px #3828170d}
+    .hero{position:relative;height:clamp(230px,39vw,390px);background:#986d4e;overflow:hidden}
+    .hero img{width:100%;height:100%;display:block;object-fit:cover;object-position:center 45%}
+    .hero-shade{position:absolute;inset:0;background:linear-gradient(90deg,#27190b99 0%,#27190b35 48%,transparent 80%)}
+    .hero-copy{position:absolute;left:clamp(20px,5vw,52px);top:50%;transform:translateY(-50%);max-width:390px;color:white;text-shadow:0 2px 16px #28180c55}
+    .eyebrow{font-size:11px;font-weight:700;letter-spacing:3px;text-transform:uppercase;margin-bottom:12px}
+    h1{font-family:Georgia,serif;font-weight:500;font-size:clamp(30px,5vw,52px);line-height:1.05;margin:0 0 12px}
+    .hero-copy p{font-size:15px;line-height:1.55;margin:0;max-width:330px}
+    .content{padding:clamp(22px,5vw,46px)}
+    .intro{margin-bottom:25px}
+    h2{font-family:Georgia,serif;font-size:clamp(24px,3.4vw,31px);font-weight:500;margin:0 0 9px}
+    .intro p{margin:0;color:var(--muted);line-height:1.65;font-size:15px}
+    form{display:grid;grid-template-columns:1fr 1fr;gap:17px 18px}
+    .field{min-width:0}
+    .field.full{grid-column:1/-1}
+    label{display:block;font-size:13px;font-weight:700;margin:0 0 8px}
+    input[type=text],input[type=email]{display:block;width:100%;height:51px;border:1px solid var(--line);border-radius:8px;background:#fff;padding:0 14px;font:16px Arial,sans-serif;color:var(--ink);outline:none}
+    input:focus{border-color:var(--tan);box-shadow:0 0 0 3px #a8754e1c}
+    .upload-box{border:1.5px dashed #c8b49e;border-radius:10px;padding:20px;background:#fcf9f4}
+    .upload-top{display:flex;align-items:center;gap:12px}
+    .upload-icon{width:42px;height:42px;border-radius:9px;background:#eee4d7;display:grid;place-items:center;font-size:20px;flex:none}
+    .upload-title{font-size:14px;font-weight:700}
+    .upload-note{font-size:12px;color:var(--muted);margin-top:4px;line-height:1.4}
+    input[type=file]{display:block;width:100%;margin-top:16px;font-size:14px;color:var(--muted)}
+    input[type=file]::file-selector-button{border:0;border-radius:6px;background:#e9dfd2;padding:10px 13px;margin-right:10px;color:#29271f;font-weight:700;cursor:pointer}
+    #selectedFiles{font-size:12px;color:var(--muted);margin-top:12px;line-height:1.5;overflow-wrap:anywhere}
+    .submit{grid-column:1/-1;width:100%;height:54px;border:0;border-radius:8px;background:var(--olive);color:white;font-size:15px;font-weight:750;letter-spacing:.3px;cursor:pointer;margin-top:2px}
+    .submit:hover{background:#20271f}.submit:disabled{opacity:.65;cursor:wait}
+    #formStatus{grid-column:1/-1;margin:0;font-size:13px;line-height:1.5;color:var(--muted);min-height:18px}
+    .footnote{text-align:center;color:#888176;font-size:12px;margin:22px 0 0}
+    @media(max-width:600px){
+      .site-header{height:62px;padding:0 18px}.brand{font-size:16px}
+      main{width:calc(100% - 20px);margin:12px auto 28px;border-radius:12px}
+      .hero{height:260px}.hero img{object-position:61% center}
+      .hero-shade{background:linear-gradient(90deg,#27190b88 0%,#27190b28 72%,transparent)}
+      .hero-copy{left:19px;right:18px;max-width:265px}
+      .eyebrow{font-size:9px;letter-spacing:2px}
+      h1{font-size:34px}.hero-copy p{font-size:13px}
+      .content{padding:23px 18px 25px}
+      form{grid-template-columns:1fr;gap:16px}
+      .field.full,.submit,#formStatus{grid-column:1}
+    }
+  </style>
+</head>
+<body>
+  <header class="site-header">
+    <span class="paw" aria-hidden="true">&#128062;</span>
+    <span class="brand">Pawtrait Studio</span>
+  </header>
+
+  <main>
+    <section class="hero" aria-label="Golden retriever studio portrait">
+      <img src="gallery/dog-hero.png" alt="Golden retriever posing for a professional studio portrait">
+      <div class="hero-shade"></div>
+      <div class="hero-copy">
+        <div class="eyebrow">Every paw has a story</div>
+        <h1>Your best friend<br>deserves a portrait.</h1>
+        <p>Beautiful portraits begin with the dog you love. Share their photos with us.</p>
+      </div>
+    </section>
+
+    <section class="content">
+      <div class="intro">
+        <h2>Let's meet your dog.</h2>
+        <p>Tell us a little about you and your furry companion. You can choose several photos at once.</p>
+      </div>
+
+      <form id="dogSubmissionForm">
+        <div class="field">
+          <label for="email">Email address</label>
+          <input id="email" name="email" type="email" placeholder="you@example.com" autocomplete="email" required>
+        </div>
+        <div class="field">
+          <label for="dogName">Dog's name</label>
+          <input id="dogName" name="dogName" type="text" placeholder="Your dog's name" maxlength="80" required>
+        </div>
+        <div class="field full">
+          <label for="fullName">Your full name</label>
+          <input id="fullName" name="fullName" type="text" placeholder="Name of the owner" autocomplete="name" maxlength="120" required>
+        </div>
+        <div class="field full">
+          <label for="photos">Upload your dog's photos</label>
+          <div class="upload-box">
+            <div class="upload-top">
+              <div class="upload-icon" aria-hidden="true">📷</div>
+              <div>
+                <div class="upload-title">Choose your favourite moments</div>
+                <div class="upload-note">Select photo· JPG, PNG or WebP · Maximum 5 photos · 4 MB each · 5 MB total</div>
+              </div>
+            </div>
+            <input id="photos" name="photos" type="file" accept="image/jpeg,image/png,image/webp" multiple required>
+            <div id="selectedFiles" aria-live="polite">No photos selected yet.</div>
+          </div>
+        </div>
+        <button class="submit" id="submitButton" type="submit">SUBMIT YOUR DOG</button>
+        <p id="formStatus" role="status" aria-live="polite"></p>
+      </form>
+      <p class="footnote">A photograph is where every portrait begins. &#128062;</p>
+    </section>
+  </main>
+
+  <script src="https://pawfarm.edgeone.dev/dog-form.js" defer></script>
+</body>
+</html>
